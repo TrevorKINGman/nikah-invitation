@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Приглашение на никах</title>
+  <link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    .event-date {
+  font-family: 'Marck Script', cursive;
+  font-size: 35px;
+  font-weight: 700;
+  color: #018dff;
+  user-select: none;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin: 20px 0;
+}
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background-image: url('https://avatars.mds.yandex.net/i?id=1dfe8dc24ee2031fd31fea129de4fb47_l-9271022-images-thumbs&n=13');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #2e2e2e;
+      text-align: center;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      min-height: 100vh;
+    }
+
+    /* Первая страница - занимает весь экран */
+    .container {
+      background: rgba(255, 255, 255, 0);
+      padding: 20px;
+      border-radius: 16px;
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      margin: 0 auto;
+      height: 100vh; /* полная высота экрана */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .title {
+      font-family: 'Marck Script', cursive;
+      font-size: 40px;
+      color: #4a90e2;
+      margin-top: 40px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    h1 {
+      font-size: 70px;
+      margin: 15px 0;
+      font-family: 'Marck Script', cursive;
+      color: #018dff;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.4s;
+      
+    }
+
+    .date-time {
+      font-size: 18px;
+      margin: 10px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.6s;
+    }
+
+    .address a {
+  position: relative;
+  color: #018dff;
+  text-decoration: none;
+  cursor: pointer;
+  
+}
+
+.address a:hover::after {
+  content: "Открыть в Яндекс.Картах";
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  font-size: 0.9rem;
+  z-index: 10;
+  opacity: 0;
+}
+
+.address a:hover::after {
+  opacity: 1;
+}
+
+
+    /* Таймер */
+    .countdown {
+      margin-top: 30px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: #1284c5;
+      font-size: 24px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .time-boxes {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: nowrap;
+    }
+
+    .time-box {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      padding: 15px 20px;
+      width: 80px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #1284c5;
+      font-weight: 700;
+      user-select: none;
+      font-size: 22px;
+      font-family: 'Montserrat', sans-serif;
+      transition: background-color 0.3s ease;
+    }
+
+    .time-box:hover {
+      background: #1284c5;
+      color: white;
+      cursor: default;
+    }
+
+    .label {
+      margin-top: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      color: #555;
+      user-select: none;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .event-date,
+.address,
+.countdown,
+.time-boxes {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease forwards;
+}
+
+.event-date {
+  animation-delay: 0.6s;
+}
+.address {
+  animation-delay: 0.8s;
+}
+.countdown {
+  animation-delay: 1s;
+}
+.time-boxes {
+  animation-delay: 1.2s;
+}
+
+    /* Вторая "страница" с фото */
+    #photosSection {
+      max-width: 800px;
+      margin: 50px auto 50px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s ease;
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #photosSection.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #photosSection h2 {
+      font-family: 'Marck Script', cursive;
+      font-size: 36px;
+      color: #4a90e2;
+      margin-bottom: 20px;
+    }
+
+    #photosSection img {
+      width: 200px;
+      height: auto;
+      margin: 10px;
+      border-radius: 16px;
+      box-shadow: none !important;
+      border: none !important;
+      outline: none !important;
+      background: transparent !important;
+    }
+
+    #photosSection .wishes {
+      font-size: 18px;
+      margin: 20px 0 10px;
+      color: #0337e4;
+      font-style: italic;
+      max-width: 600px;
+      line-height: 1.4;
+    }
+
+    #photosSection .confirm-btn {
+      background-color: #0337e4;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      font-size: 1rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: fit-content;
+      margin-top: 10px;
+    }
+
+    #photosSection .confirm-btn:hover {
+      background-color: #40adec;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 45px;
+      }
+      .date-time {
+        font-size: 16px;
+      }
+      #photosSection img {
+        width: 90%;
+        max-width: 300px;
+      }
+      .time-box {
+        width: 60px;
+        padding: 12px 15px;
+        font-size: 18px;
+      }
+      .label {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title"> <b>Приглашение на никах </b></div>
+    <h1>Ильяс & Айгуль</h1>
+    <div class="event-date">
+  <span class="big-number">4</span> <span class="month">Июля</span> <span class="big-number">12:00 ч </span>
+</div>
+    <div class="address">
+  <a href="https://yandex.ru/maps/?text=Кигинский район, село Верхние Киги, ул. Мажита Гафури, дом 8" target="_blank" rel="noopener noreferrer" title="Открыть адрес в Яндекс.Картах">
+    <span class="icon">📍</span>
+    <span class="address-text">
+      Кигинский район,<br/>
+      <strong>село Верхние Киги</strong>,<br/>
+      ул. <em>Мажита Гафури</em>, дом 8
+    </span>
+  </a>
+</div>
+    <div class="countdown">До нашей встречи осталось:</div>
+    <div class="time-boxes" id="countdownTimer">
+      <div class="time-box">
+        <div id="days">--</div>
+        <div class="label">Дней</div>
+      </div>
+      <div class="time-box">
+        <div id="hours">--</div>
+        <div class="label">Часов</div>
+      </div>
+      <div class="time-box">
+        <div id="minutes">--</div>
+        <div class="label">Минут</div>
+      </div>
+      <div class="time-box">
+        <div id="seconds">--</div>
+        <div class="label">Секунд</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="photosSection">
+    <h2>Посмотрите, как мы изменились</h2>
+    <img src="images/Fhoto 1.jpg" alt="Наше первое фото" />
+    <img src="images/Fhoto 2.jpg" alt="Какими мы стали" />
+    <div class="wishes"><b>Ждём с нетерпением встречи с вами в этот особенный день!</b></div>
+    <button class="confirm-btn" onclick="sendWhatsApp()">Мы будем!</button>
+  </section>
+
+  <script>
+    function sendWhatsApp() {
+      const phoneNumber = "79659432446"; // номер без +
+      const message = "Привет. Мы будем!";
+      const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    const photosSection = document.getElementById('photosSection');
+
+  window.addEventListener('scroll', () => {
+    const scrollPosition = window.scrollY + window.innerHeight;
+    const triggerPosition = window.innerHeight + 100; // когда проскроллим чуть больше 1-го экрана
+    if(scrollPosition > triggerPosition) {
+      photosSection.classList.add('visible');
+    } else {
+      photosSection.classList.remove('visible');
+    }
+  });
+
+  function updateCountdown() {
+    const now = new Date();
+
+    // Текущее время UTC в миллисекундах
+    const utcNow = now.getTime() + (now.getTimezoneOffset() * 60000);
+
+    // Смещение Уфимского времени UTC+5
+    const ufaOffset = 5 * 60 * 60 * 1000;
+
+    // Время сейчас в Уфе (UTC+5)
+    const ufaNow = new Date(utcNow + ufaOffset);
+
+    let year = ufaNow.getFullYear();
+
+    // Событие в 12:00 по Уфимскому времени — это 07:00 UTC
+    let eventDateUfa = new Date(Date.UTC(year, 6, 4, 7, 0, 0));
+
+    if (ufaNow > eventDateUfa) {
+      eventDateUfa = new Date(Date.UTC(year + 1, 6, 4, 7, 0, 0));
+    }
+
+    const diff = eventDateUfa - ufaNow;
+
+    if (diff <= 0) {
+      document.getElementById('days').textContent = "0";
+      document.getElementById('hours').textContent = "0";
+      document.getElementById('minutes').textContent = "0";
+      document.getElementById('seconds').textContent = "0";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById('days').textContent = days;
+    document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+</body>
+</html>
